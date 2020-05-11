@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Document</title>
+
+<style>
+  #main{
+    width:800px;
+    height: 400px;
+    border:1px solid green;
+  }
+  .map{
+    width:18px;
+    height:18px;
+    margin:1px;
+    background-color: lightblue;
+    float: left;
+  }
+  .snake{
+    width:18px;
+    height:18px;
+    margin:1px;
+    background-color: green;
+    float: left;
+  }
+  .food{
+    width:18px;
+    height:18px;
+    margin:1px;
+    background-color: red;
+    float: left;
+  }
+ 
+</style>
+<script>
+  var mapArray=new Array();
+  var mapX=40;
+  var mapY=20;
+  var snakeX=[1,2,3];
+  var snakeY=[0,0,0]
+  var foodX=2;
+  var foodY=3;
+  var KeyCode=39;
+  var move;
+  window.onload=function(){
+    createMap(); 
+    createSnake();
+    createFood();
+    setInterval(snakeMove,1300);
+
+    //.onkeydown=keyDown;
+  }
+  /////////////////////////
+  function snakeMove(){
+    cleanSnake();
+    createSnake();
+  }
+////////////////////////////
+function cleanSnake(){
+  for(var i=0;i<snakeX.length;i++){
+    var x=snakeX[i];
+    var y=snakeY[i];
+    mapArray[y][x].className="map";
+  }
+}
+  //////////////////////////
+function createSnake(){
+  for(var i=0;i<snakeX.length;i++){
+    var x=snakeX[i];
+    var y=snakeY[i]
+    mapArray[y][x].className="snake"
+  }
+}
+  /////////////////////////
+  function createFood(){
+    var r=false;
+    do{
+        r=false;
+        foodX=parseInt(Math.random()*mapX);
+        foodY=parseInt(Math.random()*mapY);
+     for(var i=0;i<snakeX.length;i++){
+       if(snakeX[i]===foodX&&snakeY[i]===foodY){
+         r=true;
+         break;
+       }
+     }
+    }while(r);
+
+  mapArray[foodY][foodX].className="food";
+}
+//////////////////////////
+  function keyDown(){
+
+}
+///////////////////////////
+  function createMap(){
+  for(var y=0;y<mapY;y++){
+    mapArray[y]=new Array();
+    for(var x=0;x<mapX;x++){
+      var div=document.createElement("div");
+      div.className="map";
+      mapArray[y][x]=div;
+      document.getElementById("main").appendChild(div);
+    }
+  }
+}
+
+</script>
+</head>
+<body >
+
+  <div id="main">
+    
+
+  </div>
+
+</body>
+</html>
