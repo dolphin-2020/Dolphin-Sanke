@@ -48,13 +48,16 @@
     createMap(); 
     createSnake();
     createFood();
-    setInterval(snakeMove,1300);
-
-    //.onkeydown=keyDown;
+   // setInterval(snakeMove,1300);
+    document.onkeydown=keyDown;
   }
   /////////////////////////
   function snakeMove(){
     cleanSnake();
+    for(var i=0;i<snakeX.length;i++){
+      snakeX[i]=snakeX[i+1];
+      snakeY[i]=snakeY[i+1];
+    }
     createSnake();
   }
 ////////////////////////////
@@ -91,8 +94,9 @@ function createSnake(){
   mapArray[foodY][foodX].className="food";
 }
 //////////////////////////
-  function keyDown(){
-
+  function keyDown(e){
+   let KeyCode=(window.event)?e.which:e.KeyCode;
+   alert(KeyCode);
 }
 ///////////////////////////
   function createMap(){
@@ -112,8 +116,6 @@ function createSnake(){
 <body >
 
   <div id="main">
-    
-
   </div>
 
 </body>
